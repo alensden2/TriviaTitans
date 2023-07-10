@@ -1,7 +1,12 @@
 import { Box, Button } from "@mui/material";
 import Navbar from "../components/navbar";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+    const navigate = useNavigate();
+    const handleGetStarted = (event) => {
+        navigate("/login")
+    }
   return (
     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
       <Box>
@@ -20,7 +25,7 @@ function Home() {
         >
           <Box sx={{ alignItems: "center", padding: "3rem" }}>
             <h1>Trivia Titans</h1>
-            <Button variant="contained" color="success">
+            <Button onClick={handleGetStarted} variant="contained" color="success">
               Get Started
             </Button>
           </Box>
