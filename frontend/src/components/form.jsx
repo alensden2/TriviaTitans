@@ -1,11 +1,8 @@
-
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-
 
 function Form({ isLogin }) {
     const [firstName, setFirstName] = useState('');
@@ -47,13 +44,25 @@ function Form({ isLogin }) {
         event.preventDefault();
 
         const formData = {
+            firstName,
+            lastName,
             email,
             password,
         };
 
+        if (isLogin) {
+            console.log('Logging in...', formData);
+        } else {
+            console.log('Registering...', formData);
+        }
+
+        // Clear form fields
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
     };
-
-
 
     useEffect(() => {
         if (firstName.trim() !== '' && !validateFirstName(firstName)) {

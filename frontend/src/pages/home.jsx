@@ -1,6 +1,7 @@
 import { Box, Button } from "@mui/material";
 import Navbar from "../components/navbar";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/footer";
 
 function Home() {
     const navigate = useNavigate();
@@ -8,6 +9,7 @@ function Home() {
         navigate("/login")
     }
   return (
+    <Box>
     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
       <Box>
         <Box sx={{ marginBottom: "-2rem" }}>
@@ -31,6 +33,8 @@ function Home() {
           </Box>
         </Box>
       </Box>
+    </Box>
+    <Footer />
     </Box>
   );
 }
