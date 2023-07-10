@@ -2,7 +2,6 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -52,25 +51,6 @@ function Form({ isLogin }) {
             password,
         };
 
-        try {
-            const response = await axios.post('https://express-t4.onrender.com/api/login', {
-                username: formData.email,
-                password: formData.password,
-            });
-
-            if (response.status === 200) {
-                navigate('/profile', {
-                    state: {
-                        email: formData.email,
-                    },
-                });
-            } else {
-                setPasswordError(response.data.message);
-            }
-        } catch (error) {
-            alert('Invalid Credentials')
-            console.log('Error:', error);
-        }
     };
 
 
