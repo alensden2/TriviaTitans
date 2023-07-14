@@ -3,9 +3,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {auth} from "../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { createUserWithEmailAndPassword } from "firebase/auth"
+import { UserAuth } from '../context/AuthContext';
 
 
 function Form({ isLogin }) {
@@ -26,6 +24,8 @@ function Form({ isLogin }) {
 
     const [isFormValid, setIsFormValid] = useState(false);
 
+    const { createUser } = UserAuth()
+
     const navigate = useNavigate();
 
 
@@ -44,7 +44,7 @@ function Form({ isLogin }) {
         return regex.test(password);
     }
 
-    const mainBtnEvent = (event) => {
+    const mainBtnEvent = async (event) => {
         event.preventDefault();
 
         const formData = {
@@ -56,14 +56,23 @@ function Form({ isLogin }) {
 
         if (isLogin) {
             console.log('Logging in...');
-            signInWithEmailAndPassword(auth,formData.email, formData.password).then(
-                (userCreds) => {
-                    console.log(userCreds)
-                }
-            ).catch((errors)=>{console.log(errors); alert("User not registered")})
+            // signInWithEmailAndPassword(auth,formData.email, formData.password).then(
+            //     (userCreds) => {
+            //         console.log(userCreds)
+            //     }
+            // ).catch((errors)=>{console.log(errors); alert("User not registered")})
         } else {
-            console.log('Registering...', formData);
-            createUserWithEmailAndPassword(auth,formData.email,formData.password);
+            // console.log('Registering...', formData);
+            // createUserWithEmailAndPassword(auth,formData.email,formData.password);
+            try {
+                alert("Sign up successful");
+                await createUser(formData.email, formData.password)
+                navigate("/profilePage")
+            } catch (e) {
+                alert("Sign up failed");
+                console.log(e)
+            }
+
         }
 
         // Clear form fields
