@@ -24,7 +24,7 @@ function Form({ isLogin }) {
 
     const [isFormValid, setIsFormValid] = useState(false);
 
-    const { createUser } = UserAuth()
+    const { createUser, signIn } = UserAuth()
 
     const navigate = useNavigate();
 
@@ -61,13 +61,21 @@ function Form({ isLogin }) {
             //         console.log(userCreds)
             //     }
             // ).catch((errors)=>{console.log(errors); alert("User not registered")})
+            try{
+                alert("Sign in successful");
+                await signIn(formData.email, formData.password)
+                navigate("/profilePage")
+            } catch(e) {
+                alert("Sign in Failed");
+                console.log(e)
+            }
         } else {
             // console.log('Registering...', formData);
             // createUserWithEmailAndPassword(auth,formData.email,formData.password);
             try {
-                alert("Sign up successful");
+                alert("Please enter security questions");
                 await createUser(formData.email, formData.password)
-                navigate("/profilePage")
+                navigate("/securityQuestion")
             } catch (e) {
                 alert("Sign up failed");
                 console.log(e)

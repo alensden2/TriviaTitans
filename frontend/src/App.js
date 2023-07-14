@@ -5,6 +5,8 @@ import Login from './pages/login';
 import Registration from './pages/registrationPage';
 import ProfilePage from './pages/profilePage';
 import { AuthConstProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import SecurityQuestionPage from './pages/securityQuestionPage';
 
 function App() {
   return (
@@ -16,7 +18,8 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Registration />} />
             <Route path='/' element={<Home />} />
-            <Route path='/profilePage' element={<ProfilePage />} />
+            <Route path='/securityQuestion' element={ <ProtectedRoute> <SecurityQuestionPage /> </ProtectedRoute>} />
+            <Route path='/profilePage' element={<ProtectedRoute> <ProfilePage /> </ProtectedRoute>} />
           </Routes>
         </AuthConstProvider>
       </BrowserRouter>
