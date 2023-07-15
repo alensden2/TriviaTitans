@@ -7,6 +7,7 @@ import ProfilePage from './pages/profilePage';
 import { AuthConstProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import SecurityQuestionPage from './pages/securityQuestionPage';
+import LoginSecurityQuestions from './pages/LoginSecurityQuestionsPage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/securityQuestion' element={ <ProtectedRoute> <SecurityQuestionPage /> </ProtectedRoute>} />
             <Route path='/profilePage' element={<ProtectedRoute> <ProfilePage /> </ProtectedRoute>} />
+            <Route path='/loginSecurityQuestions' element={<LoginSecurityQuestions />} />
           </Routes>
         </AuthConstProvider>
       </BrowserRouter>

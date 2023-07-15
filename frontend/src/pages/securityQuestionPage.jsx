@@ -24,10 +24,10 @@ function SecurityQuestionPage() {
 
     const AWS_CONFIG = {
         region: 'us-east-1',
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-        sessionToken: process.env.AWS_SESSION_TOKEN,
-      };
+        accessKeyId: "ASIAT3VCK2DAAVLANP7M",
+        secretAccessKey: "F7pTJ61YLSPNjW15lM9BvtWsLw4JcfIXj+ByCxQk",
+        sessionToken: "FwoGZXIvYXdzEKv//////////wEaDPqZLaK8hFfk1H/kHyLAAa0t7VCJ3OpgBhmg5nL7iIxTbsdWJd9hVs9VV8YqV8Sn/2FrpzPUxdXA2/DnEU0xyHUcuHNBn0NJjO7GgOv/dD3vzlQgtgZC/jASHfYmYunr1gpjptA/lgLFFywbWRIsq0Nqrs4MgVL4ySS36HjErvgAP0VKALoZM0MTsMOeeQeZyKiA6on8BBCq8QCWfm9EWxJYUmajipyu5Wiquwc9wHGD6aMRz+Iax0NOKSDkUZ1k02ebkxQHRYjTP5YiHTtSECij98elBjItPru1Hs77dJ8JpNuV5lNgf9i/uYrNQQkzSL2H+tNQJL+u5FW6qSwcd0c1Umz8",
+    };
 
 
 
