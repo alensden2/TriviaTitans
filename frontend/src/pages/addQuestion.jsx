@@ -86,12 +86,6 @@ function AddQuestion(){
                     <Button variant="contained" style={{backgroundColor: 'white', color: 'black', border: '1px solid black'}} fullWidth type="submit" onClick={handleSubmit}>Add Question</Button>
                     <br />
                     {error && <div style={{color: 'red', backgroundColor: 'white'}}>{error}</div>}
-                    {/* <br />
-                    <Button variant="contained" style={{backgroundColor: '#CCCCFF', color: 'black', border: '1px solid black'}} fullWidth type="submit" onClick={handleVolLogin}>Volunteer Login</Button>
-                    <br />
-                    <Button variant="contained" style={{backgroundColor: '#CCCCFF', color: 'black', border: '1px solid black'}} fullWidth type="submit" onClick={handleVolRegister}>Volunteer Registration</Button>
-                    <br />
-                    <Button variant="contained" style={{backgroundColor: '#CCCCFF', color: 'black', border: '1px solid black'}} fullWidth type="submit" onClick={handleAdminLogin}>Admin Login</Button> */}
                 </FormControl>
             </CardContent>
         </Card>

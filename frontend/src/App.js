@@ -9,6 +9,10 @@ import ProtectedRoute from './components/ProtectedRoute';
 import SecurityQuestionPage from './pages/securityQuestionPage';
 import CreateGame from './pages/createGame';
 import AddQuestion from './pages/addQuestion';
+import ListQuestsions from './pages/listQuestions';
+import UpdateQuestion from './pages/updateQuestion';
+import ListGames from './pages/listGames';
+import UpdateGame from './pages/updateGame';
 
 function App() {
   return (
@@ -24,6 +28,10 @@ function App() {
             <Route path='/profilePage' element={<ProtectedRoute> <ProfilePage /> </ProtectedRoute>} />
             <Route path='/creategame' element={<CreateGame />} />
             <Route path='/addquestion' element={<AddQuestion />} />
+            <Route path='/listquestions' element={<ListQuestsions />} />
+            <Route path='/updatequestion' element={<UpdateQuestion />} />
+            <Route path='/listgames' element={<ListGames />} />
+            <Route path='/updategame' element={<UpdateGame />} />
           </Routes>
         </AuthConstProvider>
       </BrowserRouter>
