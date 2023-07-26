@@ -13,6 +13,7 @@ import ListQuestsions from './pages/listQuestions';
 import UpdateQuestion from './pages/updateQuestion';
 import ListGames from './pages/listGames';
 import UpdateGame from './pages/updateGame';
+import Lex from './pages/Lex';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path='/updatequestion' element={<UpdateQuestion />} />
             <Route path='/listgames' element={<ListGames />} />
             <Route path='/updategame' element={<UpdateGame />} />
+            <Route path='/lex' element={<Lex />} />
           </Routes>
         </AuthConstProvider>
       </BrowserRouter>
