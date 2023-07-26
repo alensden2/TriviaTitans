@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 // Import the AWS SDK and set up AWS configuration with your credentials
 import AWS from 'aws-sdk';
 import { LexRuntimeV2 } from 'aws-sdk';
+import { useNavigate } from 'react-router-dom';
 
 AWS.config.update({
   region: 'us-east-1',
@@ -37,6 +38,7 @@ async function sendTextToLex(userInput) {
 }
 
 function Lex() {
+  const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState('');
 
@@ -50,6 +52,13 @@ function Lex() {
     if (response) {
       // Process the response from Amazon Lex and update the messages state
       setMessages((prevMessages) => [...prevMessages, response.messages[0].content]);
+      alert(response.messages[0].content)
+      if(response.messages[0].content === 'Sure!! Redirecting you to Login Page'){
+        navigate('/login')
+      }
+      else if (response.messages[0].content === 'Sure!! Redirecting you to Registration page'){
+        navigate('/register')
+      }
     }
   }
 
