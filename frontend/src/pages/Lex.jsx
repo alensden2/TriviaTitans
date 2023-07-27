@@ -11,9 +11,9 @@ import { useNavigate } from 'react-router-dom';
 
 AWS.config.update({
   region: 'us-east-1',
-  accessKeyId: 'ASIAVKRJSILQKALJRTHS',
-  secretAccessKey: 'mEUxQGMkW7JokjLw7AgcJhtqCxt1GAt4glUDG9QJ',
-  sessionToken: 'FwoGZXIvYXdzELL//////////wEaDM556kn7r67hUNpHoSLAAQSIYaBueNi2QCAgWDrfz0xbtUCQdlraGN8vTq1eotj+uermzRgimhOu/f9th/tZkl0diOIluB6zY8eAbp+VlcvQ56p3Lf20DB1pHGcri2+B92uiu1pf9dotFmivbgocod8Hzgy99y1ikRU+4AgIAhOahi8YWdh81nmRLGOIACi5NMdt1+BHxXUi21yts2kPaouD9u+basyGg9OPiOeRpP1BBLdwMnECzEmYAp7prSnDp40PKIeo6bLCgmyzwGMGmCiB1oGmBjItaIR28QkNniznLdChmxaWTKrIA79bufV+Jn7MQTVyvA+h46VY19i330fheMxO'
+  accessKeyId: 'ASIAVKRJSILQG7BFYRFE',
+  secretAccessKey: 'LX/m6VSXLjbUUg5iXZKZLI5BRDGNdsIkz0A6MIMb',
+  sessionToken: 'FwoGZXIvYXdzENz//////////wEaDGRJhwdXB1iX6EaRuiLAAYgFsAa4YLYc2XTK3a54dB4kyTGRC4JULstMY7SLciVJEQBtJ6X/f6rYJlcVp+ZiY6X7LC8RvK0/Ji8rEO46EmxfyUBBm72DIGAfIZ+/57V4DTVzyGzmo7f6tp9dYGc+MudCRxP05YGVcAevURuwpsf5veufDEmQwcIOEs15u1MRQfI2YXTmpYsA40FWVzTBV6DH5NWmgnRjDTA+6icFor+aL+aXUusAZOztbLNmAZ7doh/p/8yrcUjv7N5Nd2hq8CiC+IqmBjItmiI/SmyM9PGkNmdw0A1dSVdip6AOorDUqwPB903fgOlK+lfkcMoB4wyS4RzV'
 });
 
 // Function to interact with Amazon Lex V2 bot
@@ -24,7 +24,7 @@ async function sendTextToLex(userInput) {
     botId: 'FFRZZJUKRK', // Replace with your Lex V2 bot ID
     botAliasId: 'YIIEJ9TURB', // Replace with your Lex V2 bot alias ID
     localeId: 'en_US', // Replace with your Lex V2 bot locale ID
-    sessionId: '123', // Provide a unique identifier for the session
+    sessionId: '134', // Provide a unique identifier for the session
     text: userInput,
   };
 
@@ -47,17 +47,21 @@ function Lex() {
     setInputText('');
 
     const response = await sendTextToLex(inputText);
-    console.log(response.messages[0].content)
     // result = 
     if (response) {
       // Process the response from Amazon Lex and update the messages state
       setMessages((prevMessages) => [...prevMessages, response.messages[0].content]);
-      alert(response.messages[0].content)
-      if(response.messages[0].content === 'Sure!! Redirecting you to Login Page'){
+      if(response.messages[0].content === "To login, please visit our website."){
+        alert("To login, please visit our website. Redirecting to Login Page")
         navigate('/login')
       }
-      else if (response.messages[0].content === 'Sure!! Redirecting you to Registration page'){
+      else if (response.messages[0].content === "To sign up, please visit our website and complete the registration form."){
+        alert("To sign up, please visit our website and complete the registration form. Redirecting to Registration Page")
         navigate('/register')
+      }
+      else if (response.messages[0].content === "To play a game, go to the Games section on our website and choose a game to play."){
+        alert("To play a game, go to the Games section on our website and choose a game to play.")
+        // navigate to game play page
       }
     }
   }
