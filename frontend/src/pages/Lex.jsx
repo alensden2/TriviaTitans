@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 
 // Import the AWS SDK and set up AWS configuration with your credentials
 import AWS from 'aws-sdk';
@@ -11,9 +12,9 @@ import { useNavigate } from 'react-router-dom';
 
 AWS.config.update({
   region: 'us-east-1',
-  accessKeyId: 'ASIAVKRJSILQG7BFYRFE',
-  secretAccessKey: 'LX/m6VSXLjbUUg5iXZKZLI5BRDGNdsIkz0A6MIMb',
-  sessionToken: 'FwoGZXIvYXdzENz//////////wEaDGRJhwdXB1iX6EaRuiLAAYgFsAa4YLYc2XTK3a54dB4kyTGRC4JULstMY7SLciVJEQBtJ6X/f6rYJlcVp+ZiY6X7LC8RvK0/Ji8rEO46EmxfyUBBm72DIGAfIZ+/57V4DTVzyGzmo7f6tp9dYGc+MudCRxP05YGVcAevURuwpsf5veufDEmQwcIOEs15u1MRQfI2YXTmpYsA40FWVzTBV6DH5NWmgnRjDTA+6icFor+aL+aXUusAZOztbLNmAZ7doh/p/8yrcUjv7N5Nd2hq8CiC+IqmBjItmiI/SmyM9PGkNmdw0A1dSVdip6AOorDUqwPB903fgOlK+lfkcMoB4wyS4RzV'
+  accessKeyId: 'ASIAVKRJSILQDXNYEFUX',
+  secretAccessKey: 'fCkVM8vJqJYWjomXnX5mOfivLeFRdOsHwJ99KPUl',
+  sessionToken: 'FwoGZXIvYXdzEO///////////wEaDATwgXwXTkn8KOR9UCLAAeXXF4LKVV4IcIHumbQm9+j9uMduy1BK7JIj/6NU3mG205UYNF5zVlZ+nYV1z8kYph/s3PrK3PpyFyuETAcn0wcQbuNsiREq0UrzlNNDwcoNpqQmuXEMzTyxEYtpR6wsQM9ESeS1hnxvXJAc94WnOUlOVgkI1gPaT12ov+msMhQVNmxvtstubA54zERnBplD/P3JRrtiZWJ531utar1mXAfS+Rrn643ofPskwxRaWTWlpLY0+C86tSlM24vaAeQTQCjglI+mBjIthwuMrVV6OSQFHJNu0eSOIOkUq1ne8RYhq32yptSjLxXbYEglkCDz//rDz5sb'
 });
 
 // Function to interact with Amazon Lex V2 bot
@@ -37,20 +38,77 @@ async function sendTextToLex(userInput) {
   }
 }
 
+const useStyles = makeStyles((theme) => ({
+  chatbotContainer: {
+    width: 300,
+    position: 'relative',
+    position: 'fixed',
+    bottom: 20,
+    right: 20,
+    maxWidth: 400,
+    border: '1px solid #ccc',
+    borderRadius: 5,
+    overflow: 'hidden',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    transition: 'height 0.3s ease-in-out',
+    backgroundColor: 'white'
+  },
+  chatbotHeader: {
+    padding: '10px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    cursor: 'pointer',
+    background: '#f0f0f0',
+  },
+  chatbotMessages: {
+    height: 300,
+    padding: 10,
+    overflowY: 'auto',
+  },
+  message: {
+    padding: 8,
+    marginBottom: 8,
+    borderRadius: 5,
+  },
+  userMessage: {
+    backgroundColor: '#d6e4ff',
+  },
+  chatbotMessage: {
+    backgroundColor: '#f0f0f0',
+  },
+  chatbotInput: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: 10,
+  },
+  input: {
+    flexGrow: 1,
+    marginRight: 8,
+  },
+}));
+
 function Lex() {
   const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState('');
+  const [isChatbotOpen, setChatbotOpen] = useState(true);
+  const classes = useStyles();
+
+  const toggleChatbot = () => {
+    setChatbotOpen((prev) => !prev);
+  };
 
   async function handleUserInput() {
     // Clear the input field
     setInputText('');
+    setMessages([...messages, { text: inputText, user: true }]);
 
     const response = await sendTextToLex(inputText);
     // result = 
     if (response) {
       // Process the response from Amazon Lex and update the messages state
-      setMessages((prevMessages) => [...prevMessages, response.messages[0].content]);
+      setMessages((prevMessages) => [...prevMessages, { text: response.messages[0].content, user: false }]);
       if(response.messages[0].content === "To login, please visit our website."){
         alert("To login, please visit our website. Redirecting to Login Page")
         navigate('/login')
@@ -67,31 +125,39 @@ function Lex() {
   }
 
   return (
-    <div>
-      <Grid container direction="column" spacing={2}>
-        <Grid item xs={12}>
-          {/* Chat window */}
-          <div>
+    <div className={classes.chatbotContainer} style={{ height: isChatbotOpen ? '440px' :'50px' }}>
+      <div className={classes.chatbotHeader} onClick={toggleChatbot}>
+        Chatbot
+        {isChatbotOpen ? ' -' : ' +'}
+      </div>
+      {isChatbotOpen && (
+        <>
+          <div className={classes.chatbotMessages}>
             {messages.map((message, index) => (
-              <Typography key={index} variant="body1">
-                {message}
-              </Typography>
+              <div
+                key={index}
+                className={`${classes.message} ${
+                  message.user ? classes.userMessage : classes.chatbotMessage
+                }`}
+              >
+                {message.text}
+              </div>
             ))}
           </div>
-        </Grid>
-        <Grid item xs={12}>
-          {/* User input field */}
-          <TextField
-            label="Type your message"
-            variant="outlined"
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-          />
-          <Button variant="contained" color="primary" onClick={handleUserInput}>
-            Send
-          </Button>
-        </Grid>
-      </Grid>
+          <div className={classes.chatbotInput}>
+            <TextField
+              className={classes.input}
+              variant="outlined"
+              label="Type a message..."
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+            />
+            <Button variant="contained" color="primary" onClick={handleUserInput}>
+              Send
+            </Button>
+          </div>
+        </>
+      )}
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { Card, CardContent, Divider, FormControl, Stack, TextField, Button } fro
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import LexLayout from "./lexLayout";
 
 function CreateGame(){
     const [gamename, setGameName] = useState('')
@@ -83,6 +84,7 @@ function CreateGame(){
                 </FormControl>
             </CardContent>
         </Card>
+        <LexLayout />
     </div>
     );
 }

@@ -2,6 +2,7 @@ import { Card, CardContent, Divider, FormControl, Stack, TextField, Button } fro
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import LexLayout from "./lexLayout";
 
 function ListGames(){
     const navigate = useNavigate();
@@ -58,6 +59,7 @@ function ListGames(){
                 </div>
             </CardContent>
         </Card>
+        <LexLayout />
     </div>
     );
 }

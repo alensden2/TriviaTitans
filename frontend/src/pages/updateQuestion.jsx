@@ -2,6 +2,7 @@ import { Card, CardContent, Divider, FormControl, Stack, TextField, Button } fro
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
+import LexLayout from "./lexLayout";
 
 function UpdateQuestion(){
     const [question, setQuestion] = useState('')
@@ -124,6 +125,7 @@ function UpdateQuestion(){
                 </FormControl>
             </CardContent>
         </Card>
+        <LexLayout />
     </div>
     );
 }

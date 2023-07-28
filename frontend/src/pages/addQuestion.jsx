@@ -2,6 +2,7 @@ import { Card, CardContent, Divider, FormControl, Stack, TextField, Button } fro
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import LexLayout from "./lexLayout";
 
 function AddQuestion(){
     const [question, setQuestion] = useState('')
@@ -89,6 +90,7 @@ function AddQuestion(){
                 </FormControl>
             </CardContent>
         </Card>
+        <LexLayout />
     </div>
     );
 }

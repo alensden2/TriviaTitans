@@ -2,6 +2,8 @@ import { Card, CardContent, Divider, FormControl, Stack, TextField, Button } fro
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Lex from "./Lex";
+import LexLayout from "./lexLayout";
 
 function ListQuestsions(){
     const navigate = useNavigate();
@@ -59,6 +61,7 @@ function ListQuestsions(){
                 </div>
             </CardContent>
         </Card>
+        <LexLayout />
     </div>
     );
 }
