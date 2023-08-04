@@ -36,9 +36,32 @@ function ProfilePage() {
   useEffect(() => {
     if (user?.email) {
       fetchUserDetails();
+      addOauthClients()
       setIsUserLoaded(true); // Set isUserLoaded to true when user is available
     }
   }, [user?.email]);
+
+  const addOauthClients = async () => {
+    try {
+      await axios.post("https://us-central1-serverlessproject-9d011.cloudfunctions.net/getUserDetails", {
+        uid: user.uid, 
+      });
+
+      setLoading(false);
+    } catch (error) {
+      console.log("x error", error);
+      setLoading(false);
+      if (user) {
+        const userObject = {
+          uid: user.uid,
+          email: user.email,
+          teamName: ""
+        };
+        await axios.post("https://us-central1-serverlessproject-9d011.cloudfunctions.net/addDetails", userObject);
+
+    }
+    }
+  }
 
   const fetchUserDetails = async () => {
     try {
@@ -57,7 +80,7 @@ function ProfilePage() {
 
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      console.log("x error", error);
       toast.error("Error occurred while fetching user details");
       setLoading(false);
     }
