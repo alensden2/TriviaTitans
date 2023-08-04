@@ -12,9 +12,9 @@ import { useNavigate } from 'react-router-dom';
 
 AWS.config.update({
   region: 'us-east-1',
-  accessKeyId: 'ASIAVKRJSILQDXNYEFUX',
-  secretAccessKey: 'fCkVM8vJqJYWjomXnX5mOfivLeFRdOsHwJ99KPUl',
-  sessionToken: 'FwoGZXIvYXdzEO///////////wEaDATwgXwXTkn8KOR9UCLAAeXXF4LKVV4IcIHumbQm9+j9uMduy1BK7JIj/6NU3mG205UYNF5zVlZ+nYV1z8kYph/s3PrK3PpyFyuETAcn0wcQbuNsiREq0UrzlNNDwcoNpqQmuXEMzTyxEYtpR6wsQM9ESeS1hnxvXJAc94WnOUlOVgkI1gPaT12ov+msMhQVNmxvtstubA54zERnBplD/P3JRrtiZWJ531utar1mXAfS+Rrn643ofPskwxRaWTWlpLY0+C86tSlM24vaAeQTQCjglI+mBjIthwuMrVV6OSQFHJNu0eSOIOkUq1ne8RYhq32yptSjLxXbYEglkCDz//rDz5sb'
+  accessKeyId: 'ASIAVKRJSILQB2Z3WBW7',
+  secretAccessKey: 'foxCQQQiOEQ5qdqzuW7GGpRGFUFLd1Wb2wlxvIjG',
+  sessionToken: 'FwoGZXIvYXdzEPH//////////wEaDAQYDMKHoDmWHvchyCLAAYvYaPtbkROkhI7OGBBUcWupkntYE/VLE3qH4Gc0QdHsb6Y23xhx0omtZCLEdf/cMGZS1yimtUqCw3D9/npJmPAzQdTLA6zclGxJKW+EXmRK+jUvbK5sYz1+WJ2lPl2Fn/x78IWPJxOx6ZTA8TpyjliyjGdqBwD664fkQS8U0GC05I4NdZHyG8FFiyouc6zCXzlREvuFOAm9tMfBz1CKb5pBaY96esfuV+eTNjhdnKVBHW9Wuiqaf92ezI38EyGAjCjixI+mBjItRkbU4Ti/RoQSCnfBjJenC/lRaH+BmwPr8gfnZQJXB9ifAGZVoTo5iDeBlGjX'
 });
 
 // Function to interact with Amazon Lex V2 bot

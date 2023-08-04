@@ -14,6 +14,7 @@ import UpdateQuestion from './pages/updateQuestion';
 import ListGames from './pages/listGames';
 import UpdateGame from './pages/updateGame';
 import Lex from './pages/Lex';
+import LookerStudio from './pages/LookerStudio';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             <Route path='/listgames' element={<ListGames />} />
             <Route path='/updategame' element={<UpdateGame />} />
             <Route path='/lex' element={<Lex />} />
+            <Route path='/lookerstudio' element={<LookerStudio />} />
           </Routes>
         </AuthConstProvider>
       </BrowserRouter>
