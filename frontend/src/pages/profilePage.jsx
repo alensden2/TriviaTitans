@@ -3,13 +3,17 @@ import Footer from "../components/footer";
 import Navbar from "../components/navbar";
 import Typography from '@mui/material/Typography';
 import { UserAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 
 function ProfilePage() {
 
   const {user, logout} = UserAuth();
   const userEmail = "user@example.com";
-  
+  const navigate = useNavigate();
+  const handleTeamMgmt = () => {
+    navigate('/teamMgmt')
+  }
     return (
       <Box>
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
@@ -21,7 +25,7 @@ function ProfilePage() {
               <Typography variant="h5" component="div" gutterBottom>
                 Hi {user && user.email}! Welcome to your profile!
               </Typography>
-              <Button variant="contained" color="primary">
+              <Button onClick={handleTeamMgmt} variant="contained" color="primary">
                 Team Management
               </Button>
             </Box>
