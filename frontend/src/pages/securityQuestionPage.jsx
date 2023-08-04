@@ -4,6 +4,7 @@ import Navbar from '../components/navbar';
 import { UserAuth } from '../context/AuthContext';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
+import axios from "axios"
 
 
 function SecurityQuestionPage() {
@@ -24,9 +25,9 @@ function SecurityQuestionPage() {
 
     const AWS_CONFIG = {
         region: 'us-east-1',
-        accessKeyId: "ASIA4R6SGBPEBXENIJWW",
-        secretAccessKey: "7Y0aUXciW4tYtQo19ZA7jU9JBwnUodtbDXKZJh0y",
-        sessionToken: "FwoGZXIvYXdzEIj//////////wEaDEzQoCv7KWLErhDlHyLAAakKDRrS1+8dmUs3zv/8IVlWkZSsQH+S4gV2jDuESAlU7UIpPPBS36UI+J3kfuMJZx5JtbW6UJ92AZGW186hmVlND2GdqSl/oo+oZQ3Zr2CyZsFAKOsZUdyfbWP+wOj+lUSb82/47TQXNVhSrlUS6eXnoOtVj/tSFMhAb/wx7fr+3pP8/xVcv/96NrKeccW6+tKDX4Ss7ad3/dv0KYFzKQSE0/RaR4nVLr3M1kVZ19q1XmAsFxZZuxhib4olDXN+syjk0bCmBjItUjNoOV2xRSzpAo7Sibr9Mlmmt4c6iNzxDKZJB+/2vMXv3CmJAgpI8D94kaBb",
+        accessKeyId: "ASIA4R6SGBPEBK2OLFPD",
+        secretAccessKey: "QwwsrL+9NxJikxWOPcKhjKk+EIyzVLh2z4PzkzUj",
+        sessionToken: "FwoGZXIvYXdzEJv//////////wEaDOmjFzBiOjb38r/Q8SLAAd/tcBTdN4ViearNxpsSC78Qa+qm4JLvz/1DRb5e6nxqesXFiyl+NysTYINFMJ3xYTR0cgh9Id5Dr4H2pC49R+81ArD3syoA8d2sWVlcRvgZKkA7uS6ta8YY/Yr+0xBIzpLib36mA/xUerA+xfxAKqyzVJQ+YE55RJvSZhlRBnUBSUqA+4nh1IfxTI7tZJ4IYui0HMBJv405gnqcydiCsd46MT4Z4Oqdp754p0etwyH0PuP92tIgPS0SrRN13jnZ7ij187SmBjItkAPZu7DgWt7Ps4jthEIX3D/9LTtLdD5QMSNHr4PgxeHDMVN8GhMnw62vFgUw",
     };
 
 
@@ -74,7 +75,16 @@ function SecurityQuestionPage() {
 
         // extracting the user email (partition keys)
         const user_id = user.email;
+        console.log("ssss",user)
+                if (user) {
+                    const userObject = {
+                      uid: user.uid,
+                      email: user.email,
+                      teamName: ""
+                    };
+                    await axios.post("https://us-central1-serverlessproject-9d011.cloudfunctions.net/addDetails", userObject);
 
+                }
         // random ids for the questions 
         // the sort key 
         const id1 = uuidv4();

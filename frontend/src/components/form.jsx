@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
 
-
 function Form({ isLogin }) {
     const [firstName, setFirstName] = useState('');
     const [firstNameError, setFirstNameError] = useState('');
@@ -24,7 +23,7 @@ function Form({ isLogin }) {
 
     const [isFormValid, setIsFormValid] = useState(false);
 
-    const { createUser, signIn } = UserAuth()
+    const { createUser, signIn, user } = UserAuth()
 
     const navigate = useNavigate();
 
@@ -61,11 +60,11 @@ function Form({ isLogin }) {
             //         console.log(userCreds)
             //     }
             // ).catch((errors)=>{console.log(errors); alert("User not registered")})
-            try{
+            try {
                 alert("Sign in successful");
                 await signIn(formData.email, formData.password)
                 navigate("/profilePage")
-            } catch(e) {
+            } catch (e) {
                 alert("Sign in Failed");
                 console.log(e)
             }
