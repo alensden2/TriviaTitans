@@ -55,88 +55,76 @@ function ProfilePage() {
     setIsEditing(true);
   };
 
-  const handleSaveProfile = async () => {
-    if (!editedName || !editedEmail || !editedPhoneNumber) {
-      toast.error("Please fill in all fields");
-      return;
-    }
+ // ... (Other imports and component definition)
 
-    try {
-      setLoading(true);
+const handleSaveProfile = async () => {
+  if (!editedName || !editedEmail || !editedPhoneNumber) {
+    toast.error("Please fill in all fields");
+    return;
+  }
 
-      // Convert the base64 string to a file object
-      let profilePictureFile = null;
-      if (selectedImage) {
-        const reader = new FileReader();
-        reader.onloadend = async () => {
-          try {
-            // Base64-encoded image data
-            const base64Image = reader.result.split(",")[1];
-            console.log("Image data to be sent:", base64Image); // Log the image data before sending
+  try {
+    setLoading(true);
 
-            // Replace 'YOUR_IMAGE_UPLOAD_ENDPOINT' with the actual API endpoint to handle image uploads on the server
-            const uploadUrl = "https://us-east1-serverlessproject-9d011.cloudfunctions.net/updateDetails";
+    if (selectedImage) {
+      // Prepare the form data with the image file and other user details
+      const formData = new FormData();
+      formData.append('image', selectedImage);
+      formData.append('uid', '123'); // Replace this with the actual 'uid'
+      formData.append('name', editedName);
+      formData.append('email', editedEmail);
+      formData.append('phone', editedPhoneNumber);
 
-            // Get the name of the uploaded image (you can replace 'selectedImage.name' with the actual method to get the name)
-            const imageName = selectedImage.name;
+      // Replace 'YOUR_IMAGE_UPLOAD_ENDPOINT' with the actual API endpoint to handle image uploads on the server
+      const uploadUrl = "https://us-central1-serverlessproject-9d011.cloudfunctions.net/uploadImage";
 
-            // Prepare the request body with the required format
-            const requestBody = {
-              body: {
-                image_data: base64Image,
-                image_name: imageName,
-              },
-            };
+      // Send the form data to the server
+      const response = await axios.post(uploadUrl, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Set the content type as multipart/form-data
+        },
+      });
 
-            // Send the image data to the server
-            const response = await axios.post(uploadUrl, requestBody);
+      // Assuming the server returns a URL for the uploaded image, update the user details with the new URL
+      const updatedUserDetails = {
+        uid: "123", // Replace this with the actual 'uid'
+        name: editedName,
+        email: editedEmail,
+        phone: editedPhoneNumber,
+        profilePicture: response.data.imageUrl, // Replace 'imageUrl' with the actual field returned by the server
+      };
 
-            // Assuming the server returns a URL for the uploaded image, update the user details with the new URL
-            const updatedUserDetails = {
-              uid: "123", // Replace this with the actual 'uid'
-              name: editedName,
-              email: editedEmail,
-              phone: editedPhoneNumber,
-              profilePicture: response.data.imageUrl, // Replace 'imageUrl' with the actual field returned by the server
-            };
+      // Assuming you have an API endpoint to update user details, modify the URL accordingly
+      await axios.post("https://us-east1-serverlessproject-9d011.cloudfunctions.net/updateDetails", updatedUserDetails);
 
-            // Assuming you have an API endpoint to update user details, modify the URL accordingly
-            await axios.post("https://us-east1-serverlessproject-9d011.cloudfunctions.net/updateDetails", updatedUserDetails);
-
-            setUserDetails(updatedUserDetails);
-            setIsEditing(false);
-            setLoading(false);
-            toast.success("Profile saved successfully");
-          } catch (error) {
-            console.log(error);
-            toast.error("Error occurred while saving profile");
-            setLoading(false);
-          }
-        };
-        reader.readAsDataURL(selectedImage);
-      } else {
-        // If there is no selected image, update the user details without the profile picture
-        const updatedUserDetails = {
-          uid: "123", // Replace this with the actual 'uid'
-          name: editedName,
-          email: editedEmail,
-          phone: editedPhoneNumber,
-        };
-
-        // Assuming you have an API endpoint to update user details, modify the URL accordingly
-        await axios.post("https://us-east1-serverlessproject-9d011.cloudfunctions.net/updateDetails", updatedUserDetails);
-
-        setUserDetails(updatedUserDetails);
-        setIsEditing(false);
-        setLoading(false);
-        toast.success("Profile saved successfully");
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Error occurred while saving profile");
+      setUserDetails(updatedUserDetails);
+      setIsEditing(false);
       setLoading(false);
+      toast.success("Profile saved successfully");
+    } else {
+      // If there is no selected image, update the user details without the profile picture
+      const updatedUserDetails = {
+        uid: "123", // Replace this with the actual 'uid'
+        name: editedName,
+        email: editedEmail,
+        phone: editedPhoneNumber,
+      };
+
+      // Assuming you have an API endpoint to update user details, modify the URL accordingly
+      await axios.post("https://us-east1-serverlessproject-9d011.cloudfunctions.net/updateDetails", updatedUserDetails);
+
+      setUserDetails(updatedUserDetails);
+      setIsEditing(false);
+      setLoading(false);
+      toast.success("Profile saved successfully");
     }
-  };
+  } catch (error) {
+    console.log(error);
+    toast.error("Error occurred while saving profile");
+    setLoading(false);
+  }
+};
+
 
   const handleProfilePictureChange = (event) => {
     const file = event.target.files[0];
