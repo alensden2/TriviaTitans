@@ -4,6 +4,7 @@ import Navbar from '../components/navbar';
 import { UserAuth } from '../context/AuthContext';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
+import axios from "axios"
 
 
 function SecurityQuestionPage() {
@@ -24,11 +25,10 @@ function SecurityQuestionPage() {
 
     const AWS_CONFIG = {
         region: 'us-east-1',
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-        sessionToken: process.env.AWS_SESSION_TOKEN,
-      };
-
+        accessKeyId: "ASIA4R6SGBPEK63I2MY2",
+        secretAccessKey: "773MDYDWhxPqlXYpZWufjjL8uc14LLf7xSE9Ybir",
+        sessionToken: "FwoGZXIvYXdzELP//////////wEaDBMiIcNTbxJseEFy4CLAARnyra08vutgH5TPGOoh5ERqdhQc6bxL0FRaCU/BObo3hy5YW8LrffhQwv+TJ/TeOw0ePF2vVPtXphBO9hiFXA5lmj9zwSPR/osnUu9u0eTLpWiX2hfc8RZ5wWRjZs4YrI9ymCkQ1jr9NOyeSlZldDLP3wwCQJJm6cPnsppb9N3OcsZFhZahwrlMR6jNAT4G2nZYjzf5XCUe1wz0khbOIfHB2wN2tv+DB8arbVyXjT1TC42uaQItHikv132QNuEyIiiXl7qmBjItI9uAM6wg+U9JZ/Akw3HtfRy6W6cG5cC+54okhXZOEXqpdjNo5gg8yqvRhWN9",
+    };
 
 
 
@@ -74,7 +74,16 @@ function SecurityQuestionPage() {
 
         // extracting the user email (partition keys)
         const user_id = user.email;
+        console.log("ssss",user)
+                if (user) {
+                    const userObject = {
+                      uid: user.uid,
+                      email: user.email,
+                      teamName: ""
+                    };
+                    await axios.post("https://us-central1-serverlessproject-9d011.cloudfunctions.net/addDetails", userObject);
 
+                }
         // random ids for the questions 
         // the sort key 
         const id1 = uuidv4();

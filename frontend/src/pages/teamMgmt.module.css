@@ -1,0 +1,43 @@
+.dialogContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Styling for the dialog title */
+  .dialogTitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding-bottom: 0.5rem;
+  }
+  
+  /* Styling for the list container */
+  .listContainer {
+    width: 100%;
+    max-height: 300px; /* Limit the height to add a scrollbar if needed */
+    overflow-y: auto;
+  }
+  
+  /* Styling for each list item */
+  .listItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  /* Styling for the selected list item */
+  .selectedItem {
+    background-color: #f5f5f5; /* Add a background color to highlight the selected item */
+  }
+  
+  /* Styling for the dialog actions (buttons) */
+  .dialogActions {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+  }

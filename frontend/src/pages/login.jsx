@@ -5,16 +5,31 @@ import Form from "../components/form";
 import Navbar from "../components/navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle, faFacebook } from "@fortawesome/free-brands-svg-icons";
+import { UserAuth } from "../context/AuthContext";
+import { useEffect } from "react";
 
 function Login() {
   const navigate = useNavigate();
-
-  const handleSignInWithGoogle = () => {
+  const {googleSignIn, user, facebookSignIn} = UserAuth()
+  const handleSignInWithGoogle = async () => {
     // Google logic
+    try{
+      await googleSignIn();
+      // redirect to profile 
+    }
+    catch (e) {
+      console.error(e)
+    }
   };
 
-  const handleSignInWithFacebook = () => {
+  const handleSignInWithFacebook = async () => {
     // Facebook logic
+    try {
+      await facebookSignIn();
+    } 
+    catch(e) {
+      console.error(e)
+    }
   };
 
   const handleSignUpWithEmailAndPassword = () => {
@@ -22,6 +37,11 @@ function Login() {
     navigate("/register"); // Redirect to registration page
   };
 
+  useEffect(() => {
+    if(user != null){
+      navigate("/profilePage")
+    }
+  }, [])
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Navbar />
