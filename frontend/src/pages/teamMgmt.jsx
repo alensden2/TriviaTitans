@@ -22,6 +22,7 @@ export default function TeamMgmt() {
     const [usersList, setUsersList] = useState([]);
     const [selectedUser, setSelectedUser] = useState('');
     const [showAddMemberDialog, setShowAddMemberDialog] = useState(false); // Add this line
+    let teamNameCurrent = ''//Replace with lambda to check the team
 
     useEffect(() => {
         // Fetch users list from the backend
@@ -52,8 +53,25 @@ export default function TeamMgmt() {
     
     const handleAddButtonClick = () => {
         // Implement your logic for adding the selected user to the team
+         // this is team name - use lambda to find team using ID remove
+         const team_name = localStorage.getItem("team-name")
         if (selectedUser) {
-            console.log(`Adding ${selectedUser} to the team.`);
+            const inviteData = {
+                email: selectedUser,
+                teamName: team_name,  // replace with lambda to check the cureent team 
+            };
+
+            const lambdaEndpoint = "https://kt1v6etemi.execute-api.us-east-1.amazonaws.com/Test/send-invite";
+           
+            axios.post(lambdaEndpoint, inviteData)
+                .then((response) => {
+                    if (response.status === 200) {
+                        alert("Invited");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error inviting user:", error);
+                });
         }
         setShowAddMemberDialog(false);
     };
@@ -73,16 +91,20 @@ export default function TeamMgmt() {
         };
 
         // Append the current user's UID to the members array
-        data.members.push({ uid: user.uid });
+        data.members.push(user.uid);
 
         // Replace 'YOUR_LAMBDA_ENDPOINT' with the actual Lambda ARN
         const lambdaEndpoint = "https://kt1v6etemi.execute-api.us-east-1.amazonaws.com/Test/create-new-teams";
-
+console.log(data)
         axios
             .post(lambdaEndpoint, data,)
             .then((response) => {
                 if (response.status === 200) {
                     // Success
+                    alert("Team created")
+                    teamNameCurrent = teamName
+                    // temp solution the created team name is stored 
+                    localStorage.setItem("team-name", teamName);
                     console.log("Team created successfully!");
                 } else {
                     // Handle error
@@ -96,6 +118,25 @@ export default function TeamMgmt() {
             });
 
         // now update the team name on firebase userdetails table 
+
+        const lambdaEndpoint_update_firestore = "https://kt1v6etemi.execute-api.us-east-1.amazonaws.com/Test/update-team-name";
+
+        axios
+            .post(lambdaEndpoint_update_firestore, {
+                uid : user.uid,
+                newTeamName: teamName
+            })
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log(`User with email ${selectedUser} added to team successfully!`);
+                } else {
+                    console.log("Error adding user to team.");
+                }
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    
     };
 
     return (
