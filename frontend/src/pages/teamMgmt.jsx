@@ -8,9 +8,9 @@ import AWS from "aws-sdk";
 
 const AWS_CONFIG = {
     region: 'us-east-1',
-    accessKeyId: "ASIA4R6SGBPEBK2OLFPD",
-    secretAccessKey: "QwwsrL+9NxJikxWOPcKhjKk+EIyzVLh2z4PzkzUj",
-    sessionToken: "FwoGZXIvYXdzEJv//////////wEaDOmjFzBiOjb38r/Q8SLAAd/tcBTdN4ViearNxpsSC78Qa+qm4JLvz/1DRb5e6nxqesXFiyl+NysTYINFMJ3xYTR0cgh9Id5Dr4H2pC49R+81ArD3syoA8d2sWVlcRvgZKkA7uS6ta8YY/Yr+0xBIzpLib36mA/xUerA+xfxAKqyzVJQ+YE55RJvSZhlRBnUBSUqA+4nh1IfxTI7tZJ4IYui0HMBJv405gnqcydiCsd46MT4Z4Oqdp754p0etwyH0PuP92tIgPS0SrRN13jnZ7ij187SmBjItkAPZu7DgWt7Ps4jthEIX3D/9LTtLdD5QMSNHr4PgxeHDMVN8GhMnw62vFgUw",
+    accessKeyId: "ASIA4R6SGBPEHLZTWI7T",
+    secretAccessKey: "i6eovxVOp3GTL3Xgu9aeBTXGjmcNJc+v+6VISZ+k",
+    sessionToken: "FwoGZXIvYXdzEKf//////////wEaDG0H6UQkh8ffEYZiLiLAAbkRSpia0jAkIX9OBIr72S7IaJ8tBDFhKrFQ6KKLnMpn2ANGHXMAxUTDdtw6/bQ0gce09n84YivnkpBXFhMehqCfBkgvloF39UCWKe1/nJ3/zV9Wg9mw3GO1llpGYgw3Z7MVqWRprS2lmfVx+JYQXMc4ZY1ZQnJdFUo3wYWv4sURcuI2hfz74yH2ezLCAhGiJ3rBSLAdGvE7tlGq1s3EeWaar/uYdd534B5UX5uYg/sGTfCWZtWBTpevLS/QuNoFjii3y7emBjItzhqC+2lhlhEB43Aogi/5ZVl4I9z6FVpVy4Xgh9njqqlSzEpN6y1uegfbJbmt",
 };
 
 AWS.config.update(AWS_CONFIG);
@@ -190,8 +190,10 @@ console.log(data)
             <Dialog open={showAddMemberDialog} onClose={handleCloseAddMemberDialog}>
     <DialogTitle>Add Team Member</DialogTitle>
     <DialogContent>
-        <List>
-            {usersList.map((email) => (
+    <List>
+        {usersList.map((email) => (
+            // Check if the email is not equal to the logged-in user's email
+            email != user.email && (
                 <ListItem button key={email} onClick={() => handleSelectUser(email)}>
                     <ListItemText primary={email} />
                     {selectedUser === email && (
@@ -202,9 +204,10 @@ console.log(data)
                         </ListItemIcon>
                     )}
                 </ListItem>
-            ))}
-        </List>
-    </DialogContent>
+            )
+        ))}
+    </List>
+</DialogContent>
     <DialogActions>
         <Button onClick={handleCloseAddMemberDialog} color="primary">
             Close

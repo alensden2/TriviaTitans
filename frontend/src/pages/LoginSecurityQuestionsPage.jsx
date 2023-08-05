@@ -18,9 +18,9 @@ function LoginSecurityQuestions() {
 
     const AWS_CONFIG = {
         region: 'us-east-1',
-        accessKeyId: "ASIA4R6SGBPEIVWBOU37",
-        secretAccessKey: "6hP1Fuf6VQCA1pf0kYziPDqI5rj5pvxuFtS3k8Io",
-        sessionToken: "FwoGZXIvYXdzEKD//////////wEaDFOQ+0Q74+g/E1jMvSLAAZrAoeJRs1S4M+LBVpWtDeFtzn11CrIBIiundwYvTtvlAO3A7mcOfeebm84oKoKW6xpNaVNCx+7wpVjfQiMwga+p24lvTYuQWanEE4uQuA9T1Wj2/dVP2eJ7m/4Q6iED/B7kjDSY41hVUANV37GqwtX+PMsPiVzUvUKClsLOJUCZY+RAKeOsoUPXqR44tR62hm7sEWIo64psI0qQnKLTKVBW/1fJMqPJuTJt8NTJ+CA45+dVmENzdFAj4c3Ogz6FnSik/bWmBjItFfU+8BeKlTKCilt1tzCA/2H4yWSyTYWsh9FcDZQ8rTdoNrHL0jAPT/EyxV6f",
+        accessKeyId: "ASIA4R6SGBPEHLZTWI7T",
+        secretAccessKey: "i6eovxVOp3GTL3Xgu9aeBTXGjmcNJc+v+6VISZ+k",
+        sessionToken: "FwoGZXIvYXdzEKf//////////wEaDG0H6UQkh8ffEYZiLiLAAbkRSpia0jAkIX9OBIr72S7IaJ8tBDFhKrFQ6KKLnMpn2ANGHXMAxUTDdtw6/bQ0gce09n84YivnkpBXFhMehqCfBkgvloF39UCWKe1/nJ3/zV9Wg9mw3GO1llpGYgw3Z7MVqWRprS2lmfVx+JYQXMc4ZY1ZQnJdFUo3wYWv4sURcuI2hfz74yH2ezLCAhGiJ3rBSLAdGvE7tlGq1s3EeWaar/uYdd534B5UX5uYg/sGTfCWZtWBTpevLS/QuNoFjii3y7emBjItzhqC+2lhlhEB43Aogi/5ZVl4I9z6FVpVy4Xgh9njqqlSzEpN6y1uegfbJbmt",
     };
 
     AWS.config.update(AWS_CONFIG);
