@@ -90,10 +90,10 @@ function ProfilePage() {
     if (user?.email) {
       const AWS_CONFIG = {
         region: 'us-east-1',
-        accessKeyId: "ASIA4R6SGBPEBK2OLFPD",
-        secretAccessKey: "QwwsrL+9NxJikxWOPcKhjKk+EIyzVLh2z4PzkzUj",
-        sessionToken: "FwoGZXIvYXdzEJv//////////wEaDOmjFzBiOjb38r/Q8SLAAd/tcBTdN4ViearNxpsSC78Qa+qm4JLvz/1DRb5e6nxqesXFiyl+NysTYINFMJ3xYTR0cgh9Id5Dr4H2pC49R+81ArD3syoA8d2sWVlcRvgZKkA7uS6ta8YY/Yr+0xBIzpLib36mA/xUerA+xfxAKqyzVJQ+YE55RJvSZhlRBnUBSUqA+4nh1IfxTI7tZJ4IYui0HMBJv405gnqcydiCsd46MT4Z4Oqdp754p0etwyH0PuP92tIgPS0SrRN13jnZ7ij187SmBjItkAPZu7DgWt7Ps4jthEIX3D/9LTtLdD5QMSNHr4PgxeHDMVN8GhMnw62vFgUw",
-      };
+        accessKeyId: "ASIA4R6SGBPEIVWBOU37",
+        secretAccessKey: "6hP1Fuf6VQCA1pf0kYziPDqI5rj5pvxuFtS3k8Io",
+        sessionToken: "FwoGZXIvYXdzEKD//////////wEaDFOQ+0Q74+g/E1jMvSLAAZrAoeJRs1S4M+LBVpWtDeFtzn11CrIBIiundwYvTtvlAO3A7mcOfeebm84oKoKW6xpNaVNCx+7wpVjfQiMwga+p24lvTYuQWanEE4uQuA9T1Wj2/dVP2eJ7m/4Q6iED/B7kjDSY41hVUANV37GqwtX+PMsPiVzUvUKClsLOJUCZY+RAKeOsoUPXqR44tR62hm7sEWIo64psI0qQnKLTKVBW/1fJMqPJuTJt8NTJ+CA45+dVmENzdFAj4c3Ogz6FnSik/bWmBjItFfU+8BeKlTKCilt1tzCA/2H4yWSyTYWsh9FcDZQ8rTdoNrHL0jAPT/EyxV6f",
+    };
       AWS.config.update(AWS_CONFIG);
 
       const lambda = new AWS.Lambda({ region: "us-east-1" });
