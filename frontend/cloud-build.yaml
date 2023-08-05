@@ -1,0 +1,13 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Build Docker Image'
+    args:
+      - 'build'
+      - '-t'
+      - 'northamerica-northeast1-docker.pkg.dev/trivia-titans-production/trivia-titans-production/frontend:latest'      
+      - '.'
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Push Image to Artifact Registry'
+    args:
+      - 'push'
+      - 'northamerica-northeast1-docker.pkg.dev/trivia-titans-production/trivia-titans-production/frontend:latest'
