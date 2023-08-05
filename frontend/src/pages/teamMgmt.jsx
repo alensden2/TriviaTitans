@@ -1,32 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import styles from './teamMgmt.module.css';
 import {
     Box,
     Button,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-    TextField,
-    List,
-    ListItem,
-    ListItemText,
-    ListItemIcon,
     Card,
     CardContent,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    TextField,
     Typography,
 } from '@mui/material';
+import AWS from 'aws-sdk';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import Footer from '../components/footer';
 import Navbar from '../components/navbar';
 import { UserAuth } from '../context/AuthContext';
-import axios from 'axios';
-import AWS from 'aws-sdk';
+import styles from './teamMgmt.module.css';
 
 const AWS_CONFIG = {
     region: 'us-east-1',
-    accessKeyId: "ASIA4R6SGBPEI7G6H3NP",
-    secretAccessKey: "EAx7fiXLxxjIT3wbIbMedtKF2BFaOl/C2smHm5Vo",
-    sessionToken: "FwoGZXIvYXdzEK///////////wEaDIk/nw/Gg0Qcl3e8eiLAAfS+HG4OrpTMZkCWLEpdETSG6MOsbFzUvWH6YtyyumJzc5qp9J525baIKaRdQPj2tWaLx2UnJCHGDJ0+Iu9eZAcpHB6XcrrM/dkyeQ3gA5iRoKpPKMnwXI07VuJuvXCtJqe86t4sfccXzdmfKLMt/C+wm7rf/GGl14pf/MiMIQfIB7d6oyO7yVuljO9XG3WOWpmLTAmgzBN2wAmpqCwm2qN37zIC9QPiat3RdWbXcqufFMkKkDRM4OS5AZTNIbDiwSizo7mmBjItP8rsUpREN0GXLiSkPOjMwcadLpz7X3RTDlavmsGEgh5Frt0HPVsFHfWuo4fW",
+    accessKeyId: "ASIA4R6SGBPEK63I2MY2",
+    secretAccessKey: "773MDYDWhxPqlXYpZWufjjL8uc14LLf7xSE9Ybir",
+    sessionToken: "FwoGZXIvYXdzELP//////////wEaDBMiIcNTbxJseEFy4CLAARnyra08vutgH5TPGOoh5ERqdhQc6bxL0FRaCU/BObo3hy5YW8LrffhQwv+TJ/TeOw0ePF2vVPtXphBO9hiFXA5lmj9zwSPR/osnUu9u0eTLpWiX2hfc8RZ5wWRjZs4YrI9ymCkQ1jr9NOyeSlZldDLP3wwCQJJm6cPnsppb9N3OcsZFhZahwrlMR6jNAT4G2nZYjzf5XCUe1wz0khbOIfHB2wN2tv+DB8arbVyXjT1TC42uaQItHikv132QNuEyIiiXl7qmBjItI9uAM6wg+U9JZ/Akw3HtfRy6W6cG5cC+54okhXZOEXqpdjNo5gg8yqvRhWN9",
 };
 
 AWS.config.update(AWS_CONFIG);
@@ -46,9 +46,8 @@ export default function TeamMgmt() {
         setTeamInvitation(teamId);
     };
 
-  
+    // Fetch users list from the backend and set it in state
     useEffect(() => {
-        // Fetch users list from the backend
         const lambdaEndpoint = 'https://kt1v6etemi.execute-api.us-east-1.amazonaws.com/Test/get-all-users';
         axios
             .get(lambdaEndpoint)
@@ -61,7 +60,6 @@ export default function TeamMgmt() {
                 console.error('Error fetching users:', error);
             });
         console.log("gjhkjlhkjk", user.email)
-        // Check if the user has been invited to a team
         const inviteLambdaEndpoint = 'https://kt1v6etemi.execute-api.us-east-1.amazonaws.com/Test/receive-invite';
         axios
             .post(inviteLambdaEndpoint, {
@@ -83,15 +81,10 @@ export default function TeamMgmt() {
 
     const [userDetails, setUserDetails] = useState(null);
 
-
-
+    // Fetch user details based on the user's UID
     useEffect(() => {
-        // ... other useEffect code ...
-
-        // Call the 'get-item-by-uid' API to get the current user's details
         const lambdaEndpointGetUserDetails =
             'https://kt1v6etemi.execute-api.us-east-1.amazonaws.com/Test/get-item-by-uid';
-
         axios
             .post(lambdaEndpointGetUserDetails, {
                 uid: user.uid,
@@ -104,29 +97,32 @@ export default function TeamMgmt() {
             .catch((error) => {
                 console.error('Error fetching user details:', error);
             });
-}, []);
+    }, []);
 
+    // Function to handle creating a new team
     const handleCreateNewTeam = () => {
         setOpen(true);
     };
 
+    // Function to handle closing the dialog
     const handleClose = () => {
         setOpen(false);
     };
 
+    // Function to handle adding a team member
     const handleAddMember = () => {
         setOpen(false);
         setShowAddMemberDialog(true);
     };
 
+    // Function to handle adding a selected user to the team
     const handleAddButtonClick = () => {
-        // Implement your logic for adding the selected user to the team
-        // this is team name - use lambda to find team using ID remove
+
         const team_name = localStorage.getItem('team-name');
         if (selectedUser) {
             const inviteData = {
                 email: selectedUser,
-                teamName: team_name, // replace with lambda to check the current team
+                teamName: team_name,
             };
 
             const lambdaEndpoint = 'https://kt1v6etemi.execute-api.us-east-1.amazonaws.com/Test/send-invite';
@@ -144,14 +140,54 @@ export default function TeamMgmt() {
         }
         setShowAddMemberDialog(false);
     };
+
+    // Function to handle closing the "Add Member" dialog
     const handleCloseAddMemberDialog = () => {
         setShowAddMemberDialog(false);
     };
 
+    // Function to handle selecting a user from the list
     const handleSelectUser = (email) => {
         setSelectedUser(email);
     };
 
+    // Function to remove a user from the team
+    const handleRemoveUser = (uid) => {
+        setTeamMembers((prevTeamMembers) => prevTeamMembers.filter((memberUid) => memberUid !== uid));
+    };
+
+    // Function to promote a user to admin
+    const handlePromoteToAdmin = (uid, teamName) => {
+        console.log("Promoting user with UID:", uid, "to admin in team:", teamName);
+    };    
+
+    // Function to fetch the team members and admin for the current user's team
+    const fetchTeamMembers = () => {
+        const lambdaEndpoint = 'https://kt1v6etemi.execute-api.us-east-1.amazonaws.com/Test/team-members-by-id';
+        axios
+            .post(lambdaEndpoint, {
+                teamName: userDetails?.teamName,
+            })
+            .then((response) => {
+                if (response.status === 200) {
+                    const data = JSON.parse(response.data.body);
+                    setTeamMembers(data.members);
+                    setTeamAdmin(data.teamAdmin);
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching team members:', error);
+            });
+    };
+
+    // Fetch team members and admin when userDetails.teamName changes
+    useEffect(() => {
+        if (userDetails?.teamName) {
+            fetchTeamMembers();
+        }
+    }, [userDetails?.teamName]);
+
+    // Function to handle submitting the new team creation
     const handleSubmit = () => {
         const data = {
             uid: user.uid,
@@ -159,23 +195,19 @@ export default function TeamMgmt() {
             members: [],
         };
 
-        // Append the current user's UID to the members array
         data.members.push(user.uid);
 
-        // Replace 'YOUR_LAMBDA_ENDPOINT' with the actual Lambda ARN
         const lambdaEndpoint = 'https://kt1v6etemi.execute-api.us-east-1.amazonaws.com/Test/create-new-teams';
         console.log(data);
         axios
             .post(lambdaEndpoint, data)
             .then((response) => {
                 if (response.status === 200) {
-                    // Success
+
                     alert('Team created');
-                    // temp solution the created team name is stored
                     localStorage.setItem('team-name', teamName);
                     console.log('Team created successfully!');
                 } else {
-                    // Handle error
                     console.log('Error creating team.');
                 }
                 setOpen(false);
@@ -184,9 +216,6 @@ export default function TeamMgmt() {
                 console.error('Error:', error);
                 setOpen(false);
             });
-
-        // now update the team name on firebase userdetails table
-
         const lambdaEndpoint_update_firestore =
             'https://kt1v6etemi.execute-api.us-east-1.amazonaws.com/Test/update-team-name';
 
@@ -206,13 +235,12 @@ export default function TeamMgmt() {
                 console.error('Error:', error);
             });
     };
+
+    // Function to handle the user's response to a team invitation
     const handleInvitationResponse = (accepted) => {
         if (accepted) {
-            // User accepted the invitation
             alert('You have accepted the team invitation.');
             console.log(teamInvitation);
-
-            // First Axios call to update the team name for the user
             const lambdaEndpointUpdateFirestore =
                 'https://kt1v6etemi.execute-api.us-east-1.amazonaws.com/Test/update-team-name';
 
@@ -224,8 +252,6 @@ export default function TeamMgmt() {
                 .then((response) => {
                     if (response.status === 200) {
                         console.log(`User with email ${selectedUser} added to team successfully!`);
-
-                        // Second Axios call to add the user as a member to the team
                         const lambdaEndpointAddMember =
                             'https://kt1v6etemi.execute-api.us-east-1.amazonaws.com/Test/add-member';
 
@@ -237,34 +263,24 @@ export default function TeamMgmt() {
                             .then((response) => {
                                 if (response.status === 200) {
                                     console.log(`User with email ${selectedUser} added as a member to the team.`);
-                                    // Perform any additional actions as needed after successfully adding the user as a member
                                 } else {
                                     console.log('Error adding user as a member to the team.');
-                                    // Perform any additional actions as needed if the second Axios call fails
                                 }
                             })
                             .catch((error) => {
                                 console.error('Error:', error);
-                                // Perform any additional actions as needed if the second Axios call fails
                             });
                     } else {
                         console.log('Error adding user to team.');
-                        // Perform any additional actions as needed if the first Axios call fails
                     }
                 })
                 .catch((error) => {
                     console.error('Error:', error);
-                    // Perform any additional actions as needed if the first Axios call fails
                 });
         } else {
-            // User declined the invitation
             alert('You have declined the team invitation.');
-            // Perform any additional actions as needed...
         }
-        // Close the invitation popup
         setTeamInvitation('');
-
-
     };
     return (
         <div>
@@ -275,7 +291,6 @@ export default function TeamMgmt() {
                             <Navbar />
                         </Box>
 
-                        {/* Main content */}
                         <Box
                             sx={{
                                 display: 'flex',
@@ -288,7 +303,8 @@ export default function TeamMgmt() {
                             <h1 variant="h5" component="div" gutterBottom>
                                 Hi {user && user.email}! Welcome to your profile!
                             </h1>
-                            {userDetails ? (
+
+                            {userDetails && userDetails.teamName && (
                                 <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
                                     <Card>
                                         <CardContent>
@@ -297,12 +313,45 @@ export default function TeamMgmt() {
                                         </CardContent>
                                     </Card>
                                 </Box>
-                            ) : (
+                            )}
+
+                            {teamMembers.length > 0 && (
+                                <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+                                    <Card>
+                                        <CardContent>
+                                            <Typography variant="h6">Team Members:</Typography>
+                                            <List>
+                                                {teamMembers.map((memberUid) => (
+                                                    <ListItem key={memberUid}>
+                                                        <ListItemText primary={`UID: ${memberUid}`} />
+                                                        {user.uid === teamAdmin && memberUid !== teamAdmin && (
+                                                            <Box>
+                                                                <Button variant="contained" color="secondary" onClick={() => handlePromoteToAdmin(memberUid, userDetails.teamName)}>
+                                                                    Promote to Admin
+                                                                </Button>
+                                                                <Button variant="contained" color="primary" onClick={() => handleRemoveUser(memberUid)}>
+                                                                    Remove / Leave
+                                                                </Button>
+                                                            </Box>
+                                                        )}
+                                                        {user.uid !== teamAdmin && memberUid === user.uid && (
+                                                            <Button variant="contained" color="primary" onClick={() => handleRemoveUser(memberUid)}>
+                                                                Remove User
+                                                            </Button>
+                                                        )}
+                                                    </ListItem>
+                                                ))}
+                                            </List>
+                                        </CardContent>
+                                    </Card>
+                                </Box>
+                            )}
+
+                            {(!userDetails || !userDetails.teamName) && (
                                 <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
                                     <Typography variant="h6">No Team Yet</Typography>
                                 </Box>
                             )}
-                            {/* Buttons */}
 
                             <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
                                 <Button onClick={handleCreateNewTeam} variant="contained" color="primary" sx={{ marginRight: '1rem' }}>
@@ -312,7 +361,6 @@ export default function TeamMgmt() {
                                     Add a Team Member
                                 </Button>
                             </Box>
-                            
                         </Box>
                     </Box>
                 </Box>
@@ -343,21 +391,23 @@ export default function TeamMgmt() {
                     </Button>
                 </DialogActions>
             </Dialog>
+
             {/* Popup Dialog for adding a team member */}
-            <Dialog open={showAddMemberDialog}
+            <Dialog
+                open={showAddMemberDialog}
                 onClose={handleCloseAddMemberDialog}
                 className={styles.dialogContainer}
                 sx={{
                     '& .MuiDialog-paper': {
-                        width: '49rem', // Adjust the width as per your preference
-                        maxWidth: '600px', // Limit the maximum width if needed
+                        width: '49rem',
+                        maxWidth: '600px',
                     },
-                }}>
+                }}
+            >
                 <DialogTitle className={styles.dialogTitle}>Add Team Member</DialogTitle>
                 <DialogContent>
                     <List className={styles.listContainer}>
                         {usersList.map((email) => (
-                            // Check if the email is not equal to the logged-in user's email
                             email !== user.email && (
                                 <ListItem
                                     button
@@ -384,8 +434,6 @@ export default function TeamMgmt() {
                     </Button>
                 </DialogActions>
             </Dialog>
-
-            {/* Popup Dialog for invitation */}
             <Dialog open={teamInvitation !== ''} onClose={() => setTeamName('')}>
                 <DialogTitle>Team Invitation</DialogTitle>
                 <DialogContent>
@@ -400,7 +448,7 @@ export default function TeamMgmt() {
                     </Button>
                 </DialogActions>
             </Dialog>
-
         </div>
     );
+
 }
