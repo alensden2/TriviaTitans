@@ -12,6 +12,9 @@ import {
     ListItem,
     ListItemText,
     ListItemIcon,
+    Card,
+    CardContent,
+    Typography,
 } from '@mui/material';
 import Footer from '../components/footer';
 import Navbar from '../components/navbar';
@@ -36,10 +39,14 @@ export default function TeamMgmt() {
     const [teamInvitation, setTeamInvitation] = useState('');
     const [selectedUser, setSelectedUser] = useState('');
     const [showAddMemberDialog, setShowAddMemberDialog] = useState(false);
-    let teamNameCurrent = ''; // Replace with lambda to check the team
+    const [isLoading, setIsLoading] = useState(true); // Add loading state
+    const [teamMembers, setTeamMembers] = useState([]);
+    const [teamAdmin, setTeamAdmin] = useState('');
     const showInvitationPopup = (teamId) => {
         setTeamInvitation(teamId);
     };
+
+  
     useEffect(() => {
         // Fetch users list from the backend
         const lambdaEndpoint = 'https://kt1v6etemi.execute-api.us-east-1.amazonaws.com/Test/get-all-users';
@@ -74,7 +81,30 @@ export default function TeamMgmt() {
             });
     }, []);
 
+    const [userDetails, setUserDetails] = useState(null);
 
+
+
+    useEffect(() => {
+        // ... other useEffect code ...
+
+        // Call the 'get-item-by-uid' API to get the current user's details
+        const lambdaEndpointGetUserDetails =
+            'https://kt1v6etemi.execute-api.us-east-1.amazonaws.com/Test/get-item-by-uid';
+
+        axios
+            .post(lambdaEndpointGetUserDetails, {
+                uid: user.uid,
+            })
+            .then((response) => {
+                if (response.status === 200) {
+                    setUserDetails(JSON.parse(response.data.body));
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching user details:', error);
+            });
+}, []);
 
     const handleCreateNewTeam = () => {
         setOpen(true);
@@ -141,7 +171,6 @@ export default function TeamMgmt() {
                 if (response.status === 200) {
                     // Success
                     alert('Team created');
-                    teamNameCurrent = teamName;
                     // temp solution the created team name is stored
                     localStorage.setItem('team-name', teamName);
                     console.log('Team created successfully!');
@@ -259,8 +288,22 @@ export default function TeamMgmt() {
                             <h1 variant="h5" component="div" gutterBottom>
                                 Hi {user && user.email}! Welcome to your profile!
                             </h1>
-
+                            {userDetails ? (
+                                <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+                                    <Card>
+                                        <CardContent>
+                                            <Typography variant="h6">Team Name: {userDetails.teamName}</Typography>
+                                            <Typography variant="body1">UID: {userDetails.uid}</Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Box>
+                            ) : (
+                                <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+                                    <Typography variant="h6">No Team Yet</Typography>
+                                </Box>
+                            )}
                             {/* Buttons */}
+
                             <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
                                 <Button onClick={handleCreateNewTeam} variant="contained" color="primary" sx={{ marginRight: '1rem' }}>
                                     Create New Team
@@ -269,6 +312,7 @@ export default function TeamMgmt() {
                                     Add a Team Member
                                 </Button>
                             </Box>
+                            
                         </Box>
                     </Box>
                 </Box>
@@ -356,6 +400,7 @@ export default function TeamMgmt() {
                     </Button>
                 </DialogActions>
             </Dialog>
+
         </div>
     );
 }
