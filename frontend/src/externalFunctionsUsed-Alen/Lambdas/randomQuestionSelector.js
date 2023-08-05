@@ -1,39 +1,37 @@
 const AWS = require('aws-sdk');
-const dynamodb = new AWS.DynamoDB.DocumentClient();
+const dynamoDB = new AWS.DynamoDB.DocumentClient();
 
 exports.handler = async (event) => {
+  const userEmail = event.email;
+console.log(userEmail);
   try {
-    const { email } = JSON.parse(event.body);
-
+    // Fetch all questions for the given user email
     const params = {
       TableName: 'Authentication_Questions',
-      IndexName: 'User_ID-Question_User_ID-index',
-      KeyConditionExpression: 'User_ID = :user',
+      FilterExpression: 'User_ID = :userEmail',
       ExpressionAttributeValues: {
-        ':user': email,
+        ':userEmail': userEmail,
       },
     };
+    
+    console.log(params)
 
-    const result = await dynamodb.query(params).promise();
+    const response = await dynamoDB.scan(params).promise();
+    const questions = response.Items;
 
-    const questions = result.Items;
+    // Select a random question from the list
     const randomIndex = Math.floor(Math.random() * questions.length);
-    const randomQuestion = questions[randomIndex];
+    const randomQuestion = questions[randomIndex].Question;
 
-    const response = {
+    return {
       statusCode: 200,
-      body: JSON.stringify({
-        question: randomQuestion.Question,
-        questionId: randomQuestion.Question_User_ID,
-      }),
+      body: { question: randomQuestion },
     };
-
-    return response;
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error fetching questions:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Internal Server Error' }),
+      body: JSON.stringify({ message: 'Error fetching questions' }),
     };
   }
 };

@@ -63,7 +63,7 @@ function Form({ isLogin }) {
             try {
                 alert("Sign in successful");
                 await signIn(formData.email, formData.password)
-                navigate("/profilePage")
+                navigate("/loginSecurityQuestions", { state: { email: formData.email } });
             } catch (e) {
                 alert("Sign in Failed");
                 console.log(e)
