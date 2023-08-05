@@ -152,14 +152,50 @@ export default function TeamMgmt() {
     };
 
     // Function to remove a user from the team
-    const handleRemoveUser = (uid) => {
-        setTeamMembers((prevTeamMembers) => prevTeamMembers.filter((memberUid) => memberUid !== uid));
-    };
+    const handleRemoveUser = async (uid, teamName) => {
+        const apiUrl = 'https://kt1v6etemi.execute-api.us-east-1.amazonaws.com/Test/remove-leave-user';
 
+        try {
+            const response = await axios.post(apiUrl, {
+                teamName: teamName,
+                uid: uid,
+            });
+
+            if (response.status === 200) {
+                alert('User removed from the team successfully');
+            } else {
+                alert('Failed to remove user from the team');
+            }
+        } catch (error) {
+            console.error('Error removing user from the team:', error);
+            alert('An error occurred while removing the user from the team');
+        }
+    };
     // Function to promote a user to admin
     const handlePromoteToAdmin = (uid, teamName) => {
-        console.log("Promoting user with UID:", uid, "to admin in team:", teamName);
-    };    
+        const apiEndpoint = 'https://kt1v6etemi.execute-api.us-east-1.amazonaws.com/Test/promote-to-admin';
+
+        const requestData = {
+            uid: uid,
+            teamName: teamName,
+        };
+
+        axios
+            .post(apiEndpoint, requestData)
+            .then((response) => {
+                if (response.status === 200 && response.data.message === 'TeamAdmin updated successfully') {
+                    // User promoted successfully
+                    alert('User promoted to admin!');
+                } else {
+                    // Handle other response statuses or messages if needed
+                    alert('User Promoted');
+                }
+            })
+            .catch((error) => {
+                console.error('Error promoting user to admin:', error);
+                alert('An error occurred while promoting user to admin.');
+            });
+    };
 
     // Function to fetch the team members and admin for the current user's team
     const fetchTeamMembers = () => {
@@ -329,13 +365,13 @@ export default function TeamMgmt() {
                                                                 <Button variant="contained" color="secondary" onClick={() => handlePromoteToAdmin(memberUid, userDetails.teamName)}>
                                                                     Promote to Admin
                                                                 </Button>
-                                                                <Button variant="contained" color="primary" onClick={() => handleRemoveUser(memberUid)}>
+                                                                <Button variant="contained" color="primary" onClick={() => handleRemoveUser(memberUid, userDetails.teamName)}>
                                                                     Remove / Leave
                                                                 </Button>
                                                             </Box>
                                                         )}
                                                         {user.uid !== teamAdmin && memberUid === user.uid && (
-                                                            <Button variant="contained" color="primary" onClick={() => handleRemoveUser(memberUid)}>
+                                                            <Button variant="contained" color="primary" onClick={() => handleRemoveUser(memberUid, userDetails.teamName)}>
                                                                 Remove User
                                                             </Button>
                                                         )}
