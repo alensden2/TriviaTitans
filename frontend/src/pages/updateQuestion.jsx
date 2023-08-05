@@ -25,7 +25,7 @@ function UpdateQuestion(){
     useEffect(() => {
         (async () =>{
         try{
-            const response = await axios.post('https://pkeqmi2fj8.execute-api.us-east-1.amazonaws.com/dev/tt-get-questions-api', {
+            const response = await axios.post('https://zxjj4jwj50.execute-api.us-east-1.amazonaws.com/dev/get-question', {
                 'id': id
             });
             const data = response.data
@@ -82,21 +82,23 @@ function UpdateQuestion(){
                 }
             }
             try{
-                const response = await axios.post('https://pkeqmi2fj8.execute-api.us-east-1.amazonaws.com/dev/tt-edit-question-api', body);
+                console.log(id)
+                const response = await axios.post('https://zxjj4jwj50.execute-api.us-east-1.amazonaws.com/dev/edit-question', body);
                 console.log("Question Successfully Updated!")
+                navigate('/listquestions')
             }
             catch{
                 console.log("Error while retrieving")
+                navigate('/updatequestion', {state: {'id': id}})
             }
-            navigate('/listquestions')
         }
         
     }
     return(
-        <div className="centered-container" style={{backgroundColor: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '150vh', textAlign: 'center'}}>
+        <div className="centered-container" style={{backgroundColor: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', textAlign: 'center'}}>
         <Card style={{ width: '1000px' , height: '450px', border: '1px solid black', backgroundColor: '#1976d2', color: 'white'}}>
             <CardContent>
-                <h1>CREATE GAME</h1>
+                <h1>UPDATE QUESTION</h1>
                 <Divider style={{ margin: '16px 0', backgroundColor: 'white'}}/>
                 <br />
                 <br />

@@ -53,13 +53,15 @@ function AddQuestion(){
                 "Answer": answer
             }
             try{
-                const response = await axios.post('https://pkeqmi2fj8.execute-api.us-east-1.amazonaws.com/dev/tt-add-question-api', body);
+                const response = await axios.post('https://zxjj4jwj50.execute-api.us-east-1.amazonaws.com/dev/add-question', body);
                 console.log("Successfully Added!")
+                navigate('/listquestions')
             }
             catch{
                 console.log("Error while retrieving")
+                navigate('/addquestion')
             }
-            navigate('/creategame')
+            
         }
         
     }
@@ -67,7 +69,7 @@ function AddQuestion(){
         <div className="centered-container" style={{backgroundColor: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '150vh', textAlign: 'center'}}>
         <Card style={{ width: '1000px' , height: '630px', border: '1px solid black', backgroundColor: '#1976d2', color: 'white'}}>
             <CardContent>
-                <h1>CREATE GAME</h1>
+                <h1>ADD QUESTION</h1>
                 <Divider style={{ margin: '16px 0', backgroundColor: 'white'}}/>
                 <br />
                 <br />

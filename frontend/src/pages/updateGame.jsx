@@ -24,7 +24,8 @@ function UpdateGame(){
     useEffect(() => {
         (async () =>{
         try{
-            const response = await axios.post('https://pkeqmi2fj8.execute-api.us-east-1.amazonaws.com/dev/tt-get-games-api', {
+            console.log(id)
+            const response = await axios.post('https://zxjj4jwj50.execute-api.us-east-1.amazonaws.com/dev/get-game', {
                 'id': id
             });
             const data = response.data
@@ -76,7 +77,7 @@ function UpdateGame(){
                 }
             }
             try{
-                const response = await axios.post('https://pkeqmi2fj8.execute-api.us-east-1.amazonaws.com/dev/tt-update-game-api', body);
+                const response = await axios.post('https://zxjj4jwj50.execute-api.us-east-1.amazonaws.com/dev/update-game', body);
                 console.log("Game Successfully Updated!")
             }
             catch{
@@ -87,7 +88,7 @@ function UpdateGame(){
         
     }
     return(
-        <div className="centered-container" style={{backgroundColor: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '150vh', textAlign: 'center'}}>
+        <div className="centered-container" style={{backgroundColor: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', textAlign: 'center'}}>
         <Card style={{ width: '1000px' , height: '630px', border: '1px solid black', backgroundColor: '#1976d2', color: 'white'}}>
             <CardContent>
                 <h1>CREATE GAME</h1>

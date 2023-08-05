@@ -48,13 +48,15 @@ function CreateGame(){
                 "Date": date
             }
             try{
-                const response = await axios.post('https://pkeqmi2fj8.execute-api.us-east-1.amazonaws.com/dev/tt-create-game-api', body);
+                const response = await axios.post('https://zxjj4jwj50.execute-api.us-east-1.amazonaws.com/dev/creategame', body);
                 console.log("Successfully Added!")
+                navigate('/listgames')
             }
             catch{
                 console.log("Error while retrieving")
+                navigate('/creategame')
             }
-            navigate('/creategame')
+            
         }
         
     }

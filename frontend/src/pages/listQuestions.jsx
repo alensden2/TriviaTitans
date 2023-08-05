@@ -11,7 +11,7 @@ function ListQuestsions(){
     useEffect(() => {
         (async () =>{
         try{
-            const response = await axios.get('https://pkeqmi2fj8.execute-api.us-east-1.amazonaws.com/dev/tt-list-questions-api');
+            const response = await axios.get('https://zxjj4jwj50.execute-api.us-east-1.amazonaws.com/dev/list-question');
             setQuestions(response.data)
         }
         catch{
@@ -26,7 +26,7 @@ function ListQuestsions(){
             const body = {
                 'id': id
             }
-            const response = await axios.post('https://pkeqmi2fj8.execute-api.us-east-1.amazonaws.com/dev/tt-delete-question-api', body);
+            const response = await axios.post('https://zxjj4jwj50.execute-api.us-east-1.amazonaws.com/dev/delete-question', body);
             console.log("Question Successfullly Deleted!")
         }
         catch{
@@ -34,7 +34,7 @@ function ListQuestsions(){
         }
     }
     return(
-        <div className="centered-container" style={{backgroundColor: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '150vh', textAlign: 'center'}}>
+        <div className="centered-container" style={{backgroundColor: 'white', justifyContent: 'center', alignItems: 'center', maxHeight: '200vh', display: 'flex', flexDirection: 'column', overflow: 'auto', textAlign: 'center'}}>
         <Card style={{ width: '1000px' , height: '1200px', border: '1px solid black', backgroundColor: '#1976d2', color: 'white'}}>
             <CardContent>
                 <h1>QUESTIONS LIST</h1>
