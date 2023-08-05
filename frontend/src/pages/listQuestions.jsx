@@ -28,6 +28,8 @@ function ListQuestsions(){
             }
             const response = await axios.post('https://zxjj4jwj50.execute-api.us-east-1.amazonaws.com/dev/delete-question', body);
             console.log("Question Successfullly Deleted!")
+            window.location.reload()
+            // navigate('/listquestions')
         }
         catch{
             console.log("Error while retrieving")

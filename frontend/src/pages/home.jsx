@@ -8,6 +8,9 @@ function Home() {
     const handleGetStarted = (event) => {
         navigate("/login")
     }
+    const handleAdmin = (event) => {
+      navigate("/admin")
+  }
   return (
     <Box>
     <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
@@ -29,6 +32,11 @@ function Home() {
             <h1>Trivia Titans</h1>
             <Button onClick={handleGetStarted} variant="contained" color="success">
               Get Started
+            </Button>
+            <br />
+            <br />
+            <Button onClick={handleAdmin} variant="contained" color="success">
+              Continue as Admin
             </Button>
           </Box>
         </Box>

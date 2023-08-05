@@ -17,6 +17,7 @@ import ListGames from './pages/listGames';
 import UpdateGame from './pages/updateGame';
 import Lex from './pages/Lex';
 import LookerStudio from './pages/LookerStudio';
+import Admin from './pages/admin';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             <Route path='/listgames' element={<ListGames />} />
             <Route path='/updategame' element={<UpdateGame />} />
             <Route path='/lex' element={<Lex />} />
+            <Route path='/admin' element={<Admin />} />
             <Route path='/lookerstudio' element={<LookerStudio />} />
           </Routes>
         </AuthConstProvider>
