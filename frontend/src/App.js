@@ -18,6 +18,9 @@ import UpdateGame from './pages/updateGame';
 import Lex from './pages/Lex';
 import LookerStudio from './pages/LookerStudio';
 import Admin from './pages/admin';
+import TriviaGameLobby from './pages/TriviaGameLobby';
+import Createquiz from './pages/createquiz';
+import Leaderboard from './pages/leaderboard';
 
 function App() {
   return (
@@ -41,6 +44,9 @@ function App() {
             <Route path='/lex' element={<Lex />} />
             <Route path='/admin' element={<Admin />} />
             <Route path='/lookerstudio' element={<LookerStudio />} />
+            <Route path='/lobby' element={<TriviaGameLobby />} />
+            <Route path='/quizes' element={<Createquiz />} />
+            <Route path='/leaderboard' element={<Leaderboard />} />
           </Routes>
         </AuthConstProvider>
       </BrowserRouter>

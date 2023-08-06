@@ -17,6 +17,12 @@ const Admin = () => {
     const handleListGames = (event) => {
         navigate("/listgames")
     }
+    const handleLooker = (event) => {
+        navigate("/lookerstudio")
+    }
+    const handleLobby = (event) => {
+        navigate("/lobby")
+    }
   return (
     <Box>
         <Box sx={{ marginBottom: "-2rem" }}>
@@ -27,6 +33,8 @@ const Admin = () => {
             <Button sx={{border: '1px solid black'}}onClick={handleCreateQuestion}>Add Question</Button>
             <Button sx={{border: '1px solid black'}} onClick={handleListQuestions}>List Questions</Button>
             <Button sx={{border: '1px solid black'}}onClick={handleListGames}>List Games</Button>
+            <Button sx={{border: '1px solid black'}}onClick={handleLooker}>Looker Studio</Button>
+            <Button sx={{border: '1px solid black'}}onClick={handleLobby}>Lobby</Button>
         </Box>
     </Box>
   );
