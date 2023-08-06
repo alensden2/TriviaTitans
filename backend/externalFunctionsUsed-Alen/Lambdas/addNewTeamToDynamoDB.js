@@ -9,7 +9,7 @@ exports.handler = async (event) => {
     const members = parsedData.members;
 
     const params = {
-        TableName: 'team_players', // Replace with your DynamoDB table name
+        TableName: 'team_players', 
         Item: {
             uid: uid,
             teamAdmin: uid,
@@ -35,7 +35,7 @@ exports.handler = async (event) => {
         if (error.code === 'ConditionalCheckFailedException') {
             // If the UID already exists, update the item instead
             const updateParams = {
-                TableName: 'team_players', // Replace with your DynamoDB table name
+                TableName: 'team_players', 
                 Key: {
                     uid: uid
                 },
