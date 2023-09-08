@@ -1,92 +1,51 @@
-# CSCI5410-SUMMER-23-SDP31
+# Multi-Cloud Serverless Online Trivia Game
+
+Welcome to the Multi-Cloud Serverless Online Trivia Game project! This exciting project combines advanced features, user customization, and data-driven optimizations to deliver an engaging and competitive online trivia gaming experience.
+
+### Features Developed by Me
+
+#### User Authentication
+
+- Users can sign up and log in using their social media accounts (Facebook & Google) or email addresses.
+- Password recovery and reset functionality is supported, enhancing user convenience and security.
+- Implemented second-factor authentication using DynamoDB to store predefined questions and answers, validated through AWS Lambda functions.
+- Technologies used: GCP Firebase Authentication, DynamoDB, AWS Lambda.
+
+#### Team Management with AI Integration
+
+- The system utilizes AI (OPENAI API) to generate unique and engaging team names during team creation.
+- Users can invite others to join their teams, with invitations sent efficiently using Pub/Sub.
+- Support for accepting or declining team invitations, with acknowledgments sent using Pub/Sub.
+- Team statistics, including games played, win/loss ratio, and total points earned, are available.
+- Team administrators have the ability to manage team members, including promoting members to admin status, removing members, or leaving the team.
+- Technologies used: AWS DynamoDB, Lambda Functions, SQS, SNS, and integration with ChatGPT from OpenAI for AI-generated team names.
+
+## Serverless Architecture
+
+- The project employs a serverless architecture, utilizing a total of 15 Lambda functions for various tasks and processes.
+- Infrastructure as Code (IAC) has been implemented for the Continuous Integration/Continuous Deployment (CI/CD) pipeline.
+- The CI/CD pipeline automates deployment on Google Cloud Run, creating Docker images from the latest commit data, pushing them to the Google Artifact Registry, and running them on Google Cloud Run.
+- Both the front-end and back-end components are deployed using this automated pipeline, ensuring efficiency and reliability in development and deployment.
+
+## Getting Started
+
+To get started with the Multi-Cloud Serverless Online Trivia Game project, follow these steps:
+
+1. **Clone the Repository:** Clone this repository to your local development environment.
+
+2. **Setup Environment:** Set up your development environment and configure cloud services (GCP and AWS) as required.
+
+3. **Installation:** Install any project dependencies by following the instructions in the project's `README` files located in the `frontend` and `backend` directories.
+
+4. **Deployment:** Deploy the project by following the CI/CD pipeline instructions for both the front end and back end components.
+
+5. **Configuration:** Customize the game settings, such as trivia questions, categories, and AI integration, as needed.
+
+6. **Testing:** Test the application thoroughly to ensure all features are functioning correctly.
+
+7. **Documentation:** Document your specific deployment and customization processes for future reference.
 
 
+## Acknowledgments
 
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://git.cs.dal.ca/vpparmar/csci5410-summer-23-sdp31.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://git.cs.dal.ca/vpparmar/csci5410-summer-23-sdp31/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+I would thank all my teammates.
